@@ -1,6 +1,6 @@
 # Setup of Nextcloud with Docker behind Caddy reverse proxy
 
-Note: This is the result of my own journey. It may not be optimized, it works for me and comes with no guarantees. 
+Note: This is the result of my own journey. The setup as described works for me and comes with no guarantees. There may be better ways to do it.
 I'm writing this up, because I found it surprisingly difficult to find descriptions on the web how to do a proper Nextcloud setup with Docker-compose. Maybe it's of help to anyone.
 
 I started from the official nextcloud docker description: https://github.com/docker-library/docs/blob/master/nextcloud/README.md
