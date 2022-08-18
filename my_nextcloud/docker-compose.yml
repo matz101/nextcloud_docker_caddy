@@ -1,6 +1,16 @@
 version: '3.6'
-services:
 
+networks:
+  default:
+    external: true
+    name: mybridge
+    
+volumes:
+  db:
+  nextcloud:
+  redis:
+
+services:
   redis:
     image: redis
     restart: unless-stopped
@@ -13,10 +23,10 @@ services:
     volumes:
       - db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=Langeoog1#
-      - MYSQL_PASSWORD=Langeoog1#
-      - MYSQL_DATABASE=dbKLAUDnc
-      - MYSQL_USER=ncadmin
+      - MYSQL_ROOT_PASSWORD=MY_SQL_PASSWORD
+      - MYSQL_PASSWORD=MY_SQL_PASSWORD
+      - MYSQL_DATABASE=MY_SQL_DATABASE_NAME
+      - MYSQL_USER=MY_SQL_USER
       
   nc:
     image: nextcloud:fpm
@@ -25,9 +35,9 @@ services:
       - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
     restart: unless-stopped
     environment:
-      - MYSQL_PASSWORD=Langeoog1#
-      - MYSQL_DATABASE=dbKLAUDnc
-      - MYSQL_USER=ncadmin
+      - MYSQL_PASSWORD=MY_SQL_PASSWORD
+      - MYSQL_DATABASE=MY_SQL_DATABASE_NAME
+      - MYSQL_USER=MY_SQL_USER
       - MYSQL_HOST=db
       - REDIS_HOST=redis
       - PHP_MEMORY_LIMIT=1G
@@ -39,13 +49,3 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - nextcloud:/var/www/html
     restart: unless-stopped  
-    
-networks:
-  default:
-    external: true
-    name: mybridge
-    
-volumes:
-  db:
-  nextcloud:
-  redis:
