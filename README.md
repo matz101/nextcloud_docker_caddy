@@ -26,3 +26,6 @@ The directory will eventually hold the following
 ### Run a Caddy reverse-proxy and make the Nextcloud externally accessible
 
 ## Extend the setup with Collabora, Elasticsearch
+ 
+Description to follow   later  on  
+another line  
