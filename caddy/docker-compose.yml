@@ -19,6 +19,6 @@ services:
    
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./site:/srv
+      - ./srv:/srv
       - data:/data
       - config:/config

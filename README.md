@@ -14,7 +14,7 @@ An extension with Collabora and Elasticsearch is described below.
 ## Basic setup with MariaDB, Nginx, Redis
 
 ### Setting up Nextcloud
-1) Create a directory on your server and give it a meaningful name, here I use "my_nextcloud".
+1) Create a directory on your server and give it a meaningful name, here I use "next".
 The directory will eventually hold the following
 - nginx.conf, the configuration file for Nginx
 - www.conf,  the PHP configuration file for Nextcloud (optional, but convenient if settings needed)
@@ -90,7 +90,7 @@ services:
 this is basically taken from the nextcloud docker site again. You will have to replace the php handler with your docker service. In the naming scheme above it will be
 ```
     upstream php-handler {
-        server my_nextcloud_nc:9000;
+        server next_nc:9000;
     }
 ```
 
@@ -100,7 +100,7 @@ this is basically taken from the nextcloud docker site again. You will have to r
 this is the general PHP config file. You may want to optimize this based e.g. on the nextcloud documentation: https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html#tune-php-fpm
 
 #### Notes on nextcloud config.php
-after the first run, your nextcloud config.php will be created and persisted on the /var/lib/docker/volumes/my_nextcloud_nc volume. You may edit it there.
+after the first run, your nextcloud config.php will be created and persisted on the /var/lib/docker/volumes/next_nc volume. You may edit it there.
 
 4) start the stack 
 as usual, from your project folder containing the docker-compose.yml with ``` docker-compose up -d```
@@ -174,7 +174,7 @@ mydomain.tld {
 	rewrite /.well-known/caldav /remote.php/dav
     rewrite /.well-known/webfinger /index.php/.well-known/webfinger
     rewrite /.well-known/nodeinfo /index.php/.well-known/nodeinfo
-    reverse_proxy my_nextcloud_web
+    reverse_proxy next_web
 }
 ```
 

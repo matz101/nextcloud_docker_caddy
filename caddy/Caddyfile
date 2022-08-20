@@ -4,7 +4,7 @@ mydomain.tld {
 	rewrite /.well-known/caldav /remote.php/dav
     rewrite /.well-known/webfinger /index.php/.well-known/webfinger
     rewrite /.well-known/nodeinfo /index.php/.well-known/nodeinfo
-    reverse_proxy my_nextcloud_web
+    reverse_proxy next_web
 }
 
 
