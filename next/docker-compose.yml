@@ -30,10 +30,10 @@ services:
       
   nc:
     image: nextcloud:fpm
+    restart: unless-stopped
     volumes:
       - nextcloud:/var/www/html
       - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
-    restart: unless-stopped
     environment:
       - MYSQL_PASSWORD=MY_SQL_PASSWORD
       - MYSQL_DATABASE=MY_SQL_DATABASE_NAME
@@ -45,7 +45,8 @@ services:
       - TRUSTED_PROXIES=172.0.0.0/8
   web:
     image: nginx
+    restart: unless-stopped  
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - nextcloud:/var/www/html
-    restart: unless-stopped  
+     

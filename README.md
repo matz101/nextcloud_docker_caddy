@@ -59,10 +59,10 @@ services:
       
   nc:
     image: nextcloud:fpm
+    restart: unless-stopped
     volumes:
       - nextcloud:/var/www/html
       - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
-    restart: unless-stopped
     environment:
       - MYSQL_PASSWORD=MY_SQL_PASSWORD
       - MYSQL_DATABASE=MY_SQL_DATABASE_NAME
@@ -74,23 +74,25 @@ services:
       - TRUSTED_PROXIES=172.0.0.0/8
   web:
     image: nginx
+    restart: unless-stopped  
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - nextcloud:/var/www/html
-    restart: unless-stopped  
 ```
 #### Notes on the docker-compose.yml
+- 
 - you should replace the MY_SQL passwords etc. with your own.
-- there is no exposed port, that is the services are only visible on the "mybridge" docker network. You may add a port, but it will only be accessible via http://, so not safe for external use.
-- we'll access the service via our Caddy proxy in the next step
-- you can define some of the config variables either in the docker-compose or in the nextcloud config.php file. I like to have the important ones in the compose file.
+- there is no exposed port, that means the services are only visible on the "mybridge" docker network. You may add a port, but it will only be accessible via http://, so not safe for external use. We'll access the service via our Caddy proxy in the next step.
+- Container names. Unfortunately the automatic naming scheme for containers is inconsistent between the old 'docker-compose' and the new 'docker compose'.
+the new Docker-compose will name the container <projectfolder>-<service>-<number> (used here), whereas the new Docker compose will name them with a '_' instead of the '-'. You may want to assign explicit names with container_name: mycontainername instead
+- you can define some of the Nextcloud config variables either in the docker-compose or in the nextcloud config.php file. I like to have the important ones in the compose file.
 - the TRUSTED_PROXIES is the Docker network address of your Caddy proxy. You may define a narrower scope, if you like, instead of the /8 block used here.
 
 #### Notes on the nginx.conf
-this is basically taken from the nextcloud docker site again. You will have to replace the php handler with your docker service. In the naming scheme above it will be
+this is basically taken from the Nextcloud Docker site again. You will have to replace the php handler with your Docker service. In the naming scheme above it will be
 ```
     upstream php-handler {
-        server next_nc:9000;
+        server next-nc-1:9000;
     }
 ```
 
