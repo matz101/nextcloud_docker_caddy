@@ -1,0 +1,22 @@
+  version: '3.6'
+
+  networks:    
+    default:
+      external: true
+      name: mybridge
+
+  services:
+    collabora:
+      image: collabora/code
+      restart: unless-stopped
+      container_name: collabora
+      cap_add:
+        - MKNOD
+      expose:
+        - 9980
+      environment:
+        - aliasgroup1=https://mydomain1.tld
+        - aliasgroup2=https://mydomain2.tld
+        - username=YourUserName    
+        - password=YourStrongPassword!   
+        - "extra_params=--o:ssl.enable=false --o:ssl.termination=true"
