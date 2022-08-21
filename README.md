@@ -90,7 +90,7 @@ services:
 - Ports: there is no exposed port, that means the services are only visible on the "mybridge" docker network. You may add a port, but it will only be accessible via http://, so not safe for external use. We'll access the service via our Caddy proxy in the next step.
 - Container names. The automatic naming scheme for containers is inconsistent between the old 'docker-compose' and the new 'docker compose'.
 the new Docker Compose will name the container [projectfolder]-[service]-[number] (used here), whereas the older Docker-compose will name them with an underscore `_` instead of the hyphen `-`. You may want to assign explicit names with `container_name: mycontainername` 
-- Volume names. The Docker volumes are created in a installation specific directory (in my case /var/lib/docker/volumes/) and are auto-named <projectfolder>_<volumename>
+- Volume names. The Docker volumes are created in a installation specific directory (in my case /var/lib/docker/volumes/) and are auto-named [projectfolder]_[volumename]
 - Environment variables. 
 you may want to replace the MY_SQL passwords etc. with your own.
 You can define some of the Nextcloud config variables either in the docker-compose or in the nextcloud config.php file. I like to have the important ones in the compose file.
